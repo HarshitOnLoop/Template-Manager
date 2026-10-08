@@ -1,0 +1,2218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Template Manager</title>
+
+<style>
+:root {
+  --text:#24292f;
+  --muted:#57606a;
+  --border:#d0d7de;
+  --header:#f6f8fa;
+  --blue:#0969da;
+  --green:#1a7f37;
+  --green-bg:#dafbe1;
+  --red:#cf222e;
+  --red-bg:#ffebe9;
+}
+
+* {
+  box-sizing:border-box;
+}
+
+body {
+  margin:0;
+  background:#fff;
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  font-size:13px;
+}
+
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:18px;
+}
+
+.header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:12px;
+}
+
+.header-title {
+  font-size:16px;
+  font-weight:600;
+}
+
+.actions {
+  display:flex;
+  gap:5px;
+  flex-wrap:wrap;
+}
+
+button {
+  font-family:inherit;
+}
+
+.btn {
+  height:29px;
+  padding:0 9px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  background:#f6f8fa;
+  color:var(--text);
+  font-size:12px;
+  font-weight:500;
+  cursor:pointer;
+}
+
+.btn:hover {
+  background:#eef1f4;
+}
+
+.btn-blue {
+  background:var(--blue);
+  color:#fff;
+  border-color:var(--blue);
+}
+
+.btn-green {
+  color:var(--green);
+  border-color:#b7dfc1;
+  background:#f0fff4;
+}
+
+.btn-green:hover {
+  background:var(--green-bg);
+}
+
+.btn-red {
+  color:var(--red);
+  border-color:#ffc7c7;
+  background:#fff5f5;
+}
+
+.btn-red:hover {
+  background:var(--red-bg);
+}
+
+.btn-danger {
+  color:var(--red);
+}
+
+/* IMPORT */
+
+.import-panel {
+  display:none;
+  padding:10px;
+  margin-bottom:10px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  background:#f6f8fa;
+}
+
+.import-panel.open {
+  display:block;
+}
+
+.import-title {
+  font-weight:600;
+  margin-bottom:5px;
+}
+
+.import-help {
+  color:var(--muted);
+  font-size:11px;
+  line-height:17px;
+  margin-bottom:7px;
+}
+
+.import-textarea {
+  width:100%;
+  min-height:190px;
+  padding:8px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  outline:none;
+  resize:vertical;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:12px;
+  line-height:18px;
+}
+
+.import-textarea:focus {
+  border-color:var(--blue);
+  box-shadow:0 0 0 2px rgba(9,105,218,.15);
+}
+
+.import-buttons {
+  display:flex;
+  gap:5px;
+  margin-top:7px;
+}
+
+/* TABS */
+
+.tabs-wrapper {
+  display:flex;
+  align-items:center;
+  border-bottom:1px solid var(--border);
+  overflow-x:auto;
+}
+
+.tabs {
+  display:flex;
+  gap:2px;
+}
+
+.tab {
+  height:34px;
+  padding:0 10px;
+  border:1px solid transparent;
+  border-bottom:none;
+  border-radius:6px 6px 0 0;
+  background:transparent;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:500;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.tab:hover {
+  background:#f6f8fa;
+  color:var(--text);
+}
+
+.tab.active {
+  background:#fff;
+  color:var(--text);
+  border-color:var(--border);
+  font-weight:600;
+}
+
+.tab-x {
+  margin-left:6px;
+  color:#8c959f;
+}
+
+.tab-x:hover {
+  color:var(--red);
+}
+
+.new-table {
+  height:27px;
+  margin-left:5px;
+  margin-bottom:3px;
+  padding:0 8px;
+  border:1px solid var(--border);
+  border-radius:5px;
+  background:#fff;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:11px;
+}
+
+/* TABLE */
+
+.table-wrapper {
+  border:1px solid var(--border);
+  border-top:none;
+  border-radius:0 0 6px 6px;
+  overflow-x:auto;
+}
+
+table {
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+}
+
+th {
+  height:32px;
+  padding:6px 8px;
+  background:var(--header);
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-size:12px;
+  font-weight:600;
+}
+
+td {
+  height:40px;
+  padding:4px 7px;
+  border-bottom:1px solid #d8dee4;
+  vertical-align:middle;
+}
+
+tr:last-child td {
+  border-bottom:none;
+}
+
+tr:hover {
+  background:#f6f8fa;
+}
+
+.col-number {
+  width:42px;
+  text-align:center;
+  color:var(--muted);
+}
+
+.col-name {
+  width:70%;
+}
+
+.col-status {
+  width:22%;
+}
+
+.col-delete {
+  width:45px;
+  text-align:center;
+}
+
+/* INPUT */
+
+.template-input {
+  display:block;
+  width:100%;
+  min-height:30px;
+  height:30px;
+  padding:4px 7px;
+  border:1px solid transparent;
+  border-radius:5px;
+  background:transparent;
+  color:#24292f;
+  outline:none;
+  resize:vertical;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  font-size:13px;
+  font-weight:700;
+  line-height:19px;
+}
+
+.template-input:hover {
+  background:#fff;
+  border-color:var(--border);
+}
+
+.template-input:focus {
+  background:#fff;
+  border-color:var(--blue);
+  box-shadow:0 0 0 2px rgba(9,105,218,.15);
+}
+
+.template-input::placeholder {
+  color:#8c959f;
+  font-weight:400;
+}
+
+/* STATUS */
+
+.status-box {
+  display:flex;
+  gap:5px;
+}
+
+.status {
+  width:30px;
+  height:26px;
+  padding:0;
+  border:1px solid var(--border);
+  border-radius:5px;
+  background:#fff;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+}
+
+.status.u.active {
+  background:var(--green-bg);
+  border-color:#4ac26b;
+  color:var(--green);
+}
+
+.status.m.active {
+  background:var(--red-bg);
+  border-color:#ff8182;
+  color:var(--red);
+}
+
+.delete-row {
+  width:27px;
+  height:26px;
+  border:1px solid transparent;
+  border-radius:5px;
+  background:transparent;
+  color:var(--muted);
+  font-size:15px;
+  cursor:pointer;
+}
+
+.delete-row:hover {
+  background:var(--red-bg);
+  border-color:#ff8182;
+  color:var(--red);
+}
+
+.empty {
+  padding:35px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+
+/* FOOTER */
+
+.footer {
+  display:flex;
+  justify-content:space-between;
+  margin-top:7px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.saved {
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+
+.saved-dot {
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--green);
+}
+
+kbd {
+  padding:1px 4px;
+  border:1px solid var(--border);
+  border-bottom-color:#afb8c1;
+  border-radius:3px;
+  background:#f6f8fa;
+  font-family:monospace;
+  font-size:10px;
+}
+
+/* DOWNLOAD MODAL */
+
+.modal-overlay {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(27,31,36,.35);
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+
+.modal-overlay.open {
+  display:flex;
+}
+
+.modal {
+  width:360px;
+  max-width:calc(100% - 24px);
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:8px;
+  box-shadow:0 8px 30px rgba(27,31,36,.18);
+}
+
+.modal-header {
+  padding:12px 14px;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+  font-weight:600;
+}
+
+.modal-body {
+  padding:14px;
+}
+
+.modal-label {
+  display:block;
+  margin-bottom:5px;
+  font-size:12px;
+  font-weight:600;
+}
+
+.filename-input {
+  width:100%;
+  height:32px;
+  padding:5px 8px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  outline:none;
+  font-size:13px;
+}
+
+.filename-input:focus {
+  border-color:var(--blue);
+  box-shadow:0 0 0 2px rgba(9,105,218,.15);
+}
+
+.download-info {
+  margin-top:9px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:16px;
+}
+
+.download-options {
+  display:flex;
+  gap:6px;
+  margin-top:12px;
+}
+
+.download-option {
+  flex:1;
+  height:32px;
+  border:1px solid var(--border);
+  border-radius:6px;
+  background:#f6f8fa;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:600;
+}
+
+.download-option:hover {
+  background:#eef1f4;
+}
+
+.download-option.u {
+  color:var(--green);
+}
+
+.download-option.m {
+  color:var(--red);
+}
+
+.modal-footer {
+  display:flex;
+  justify-content:flex-end;
+  gap:5px;
+  padding:10px 14px;
+  border-top:1px solid var(--border);
+}
+
+@media(max-width:650px) {
+
+  .container {
+    padding:12px 8px;
+  }
+
+  .header {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  table {
+    min-width:650px;
+  }
+
+  .footer {
+    flex-direction:column;
+    gap:5px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="header">
+
+    <div class="header-title">
+      Template Manager
+    </div>
+
+    <div class="actions">
+
+      <button class="btn btn-green" onclick="addRow(true)">
+        + New row
+      </button>
+
+      <button class="btn" onclick="toggleImport()">
+        ↑ Import
+      </button>
+
+      <button class="btn btn-green" onclick="openDownload('U')">
+        ↓ U .txt
+      </button>
+
+      <button class="btn btn-red" onclick="openDownload('M')">
+        ↓ M .txt
+      </button>
+
+      <button class="btn btn-blue" onclick="downloadCSV()">
+        ↓ CSV
+      </button>
+
+      <button class="btn btn-danger" onclick="clearTable()">
+        Clear
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- IMPORT -->
+
+  <div id="importPanel" class="import-panel">
+
+    <div class="import-title">
+      Import data
+    </div>
+
+    <div class="import-help">
+
+      Paste your Notepad data here.
+      Different template families automatically go into different tables.
+
+      <br><br>
+
+      Example:
+
+      <code>
+        5_days_yoga_trial_day_1_morning_class_reminder m
+      </code>
+
+      <br>
+
+      <code>
+        5_days_yoga_trial_day_1_morning_class_reminder_1 u
+      </code>
+
+    </div>
+
+    <textarea
+      id="importTextarea"
+      class="import-textarea"
+      placeholder="Paste your data here..."
+    ></textarea>
+
+    <div class="import-buttons">
+
+      <button class="btn btn-green" onclick="importData()">
+        Import
+      </button>
+
+      <button class="btn" onclick="clearImport()">
+        Clear
+      </button>
+
+      <button class="btn" onclick="toggleImport()">
+        Close
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- TABS -->
+
+  <div class="tabs-wrapper">
+
+    <div id="tabs" class="tabs"></div>
+
+    <button class="new-table" onclick="createTable()">
+      + Table
+    </button>
+
+  </div>
+
+
+  <!-- TABLE -->
+
+  <div class="table-wrapper">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th class="col-number">#</th>
+
+          <th class="col-name">
+            Template name
+          </th>
+
+          <th class="col-status">
+            Status
+          </th>
+
+          <th class="col-delete"></th>
+
+        </tr>
+
+      </thead>
+
+      <tbody id="tableBody"></tbody>
+
+    </table>
+
+    <div id="emptyMessage" class="empty">
+      No templates yet.
+      Click <strong>+ New row</strong> to start.
+    </div>
+
+  </div>
+
+
+  <div class="footer">
+
+    <div class="saved">
+
+      <span class="saved-dot"></span>
+
+      Saved locally
+
+    </div>
+
+    <div>
+
+      <kbd>Enter</kbd>
+      next row
+
+      &nbsp;·&nbsp;
+
+      <kbd>Shift + Enter</kbd>
+      new line
+
+      &nbsp;·&nbsp;
+
+      <kbd>Backspace</kbd>
+      delete empty row
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- DOWNLOAD MODAL -->
+
+<div id="downloadModal" class="modal-overlay">
+
+  <div class="modal">
+
+    <div class="modal-header">
+      Download TXT
+    </div>
+
+    <div class="modal-body">
+
+      <label class="modal-label">
+        File name
+      </label>
+
+      <input
+        id="downloadFilename"
+        class="filename-input"
+        type="text"
+        placeholder="utility"
+      >
+
+      <div id="downloadInfo" class="download-info"></div>
+
+      <div class="download-options">
+
+        <button
+          class="download-option u"
+          onclick="downloadTxt('current')"
+        >
+          Current Table
+        </button>
+
+        <button
+          class="download-option u"
+          onclick="downloadTxt('all')"
+        >
+          All Tables
+        </button>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        class="btn"
+        onclick="closeDownload()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+const STORAGE_KEY = "template_manager_v7";
+
+let app = {
+  activeTableId:null,
+  tables:[]
+};
+
+let downloadStatus = "U";
+
+
+/* =====================================================
+   ID
+===================================================== */
+
+function id() {
+
+  return Date.now() + "_" +
+    Math.random()
+      .toString(36)
+      .substring(2,9);
+
+}
+
+
+/* =====================================================
+   ROW
+===================================================== */
+
+function newRow(name="", status="") {
+
+  return {
+    id:id(),
+    name:name,
+    status:status
+  };
+
+}
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+function save() {
+
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(app)
+  );
+
+}
+
+
+/* =====================================================
+   CURRENT TABLE
+===================================================== */
+
+function currentTable() {
+
+  return app.tables.find(
+    t => t.id === app.activeTableId
+  );
+
+}
+
+
+/* =====================================================
+   LOAD
+===================================================== */
+
+function load() {
+
+  const saved =
+    localStorage.getItem(STORAGE_KEY);
+
+  if (saved) {
+
+    try {
+
+      app = JSON.parse(saved);
+
+    } catch {
+
+      app = {
+        activeTableId:null,
+        tables:[]
+      };
+
+    }
+
+  }
+
+
+  if (!Array.isArray(app.tables)) {
+    app.tables=[];
+  }
+
+
+  if (app.tables.length===0) {
+
+    const table={
+      id:id(),
+      name:"Table 1",
+      family:null,
+      rows:[]
+    };
+
+    app.tables.push(table);
+
+    app.activeTableId=table.id;
+
+  }
+
+
+  if (
+    !app.tables.some(
+      t => t.id===app.activeTableId
+    )
+  ) {
+
+    app.activeTableId =
+      app.tables[0].id;
+
+  }
+
+
+  save();
+  render();
+
+}
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function escapeHTML(value) {
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   FAMILY NAME
+===================================================== */
+
+function getBaseName(name) {
+
+  name=name.trim();
+
+  if (!name) return "";
+
+  const match =
+    name.match(/^(.*)_(\d+)$/);
+
+  if (match) {
+    return match[1];
+  }
+
+  return name;
+
+}
+
+
+/* =====================================================
+   CREATE TABLE
+===================================================== */
+
+function createTable() {
+
+  const name =
+    prompt(
+      "Table name:",
+      `Table ${app.tables.length+1}`
+    );
+
+  if (
+    name===null ||
+    !name.trim()
+  ) {
+    return;
+  }
+
+  const table={
+    id:id(),
+    name:name.trim(),
+    family:null,
+    rows:[]
+  };
+
+  app.tables.push(table);
+
+  app.activeTableId=table.id;
+
+  save();
+  render();
+
+}
+
+
+/* =====================================================
+   RENAME TABLE
+===================================================== */
+
+function renameTable(tableId) {
+
+  const table =
+    app.tables.find(
+      t => t.id===tableId
+    );
+
+  if (!table) return;
+
+  const name =
+    prompt(
+      "Rename table:",
+      table.name
+    );
+
+  if (
+    name===null ||
+    !name.trim()
+  ) {
+    return;
+  }
+
+  table.name=name.trim();
+
+  save();
+  renderTabs();
+
+}
+
+
+/* =====================================================
+   DELETE TABLE
+===================================================== */
+
+function deleteTable(event,tableId) {
+
+  event.stopPropagation();
+
+  if (app.tables.length<=1) {
+
+    alert(
+      "You must keep at least one table."
+    );
+
+    return;
+
+  }
+
+  const table =
+    app.tables.find(
+      t => t.id===tableId
+    );
+
+  if (!table) return;
+
+  if (
+    !confirm(
+      `Delete "${table.name}"?`
+    )
+  ) {
+    return;
+  }
+
+  app.tables =
+    app.tables.filter(
+      t => t.id!==tableId
+    );
+
+  if (
+    app.activeTableId===tableId
+  ) {
+
+    app.activeTableId =
+      app.tables[0].id;
+
+  }
+
+  save();
+  render();
+
+}
+
+
+/* =====================================================
+   SWITCH TABLE
+===================================================== */
+
+function switchTable(tableId) {
+
+  app.activeTableId=tableId;
+
+  save();
+  render();
+
+}
+
+
+/* =====================================================
+   ADD ROW
+===================================================== */
+
+function addRow(focus=false) {
+
+  const table=currentTable();
+
+  if (!table) return;
+
+  table.rows.push(
+    newRow()
+  );
+
+  save();
+  renderTable();
+
+  if (focus) {
+
+    setTimeout(() => {
+
+      const inputs =
+        document.querySelectorAll(
+          ".template-input"
+        );
+
+      if (inputs.length) {
+        inputs[inputs.length-1].focus();
+      }
+
+    },20);
+
+  }
+
+}
+
+
+/* =====================================================
+   NEXT NAME
+===================================================== */
+
+function nextName(table,currentName) {
+
+  const base =
+    getBaseName(currentName);
+
+  if (!base) return "";
+
+  const names =
+    new Set(
+      table.rows
+        .map(r=>r.name.trim())
+        .filter(Boolean)
+    );
+
+  if (!names.has(base)) {
+    return base;
+  }
+
+  let number=1;
+
+  while (
+    names.has(
+      `${base}_${number}`
+    )
+  ) {
+
+    number++;
+
+  }
+
+  return `${base}_${number}`;
+
+}
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+function keydown(event,rowId) {
+
+  const table=currentTable();
+
+  if (!table) return;
+
+  const index =
+    table.rows.findIndex(
+      r=>r.id===rowId
+    );
+
+  if (index===-1) return;
+
+  const input=event.target;
+
+
+  /* ENTER */
+
+  if (
+    event.key==="Enter" &&
+    !event.shiftKey
+  ) {
+
+    event.preventDefault();
+
+    const name=input.value.trim();
+
+
+    if (
+      index===
+      table.rows.length-1
+    ) {
+
+      let generated="";
+
+      if (name) {
+        generated=
+          nextName(
+            table,
+            name
+          );
+      }
+
+      table.rows.push(
+        newRow(generated,"")
+      );
+
+      save();
+      renderTable();
+
+      setTimeout(() => {
+
+        const inputs =
+          document.querySelectorAll(
+            ".template-input"
+          );
+
+        if (inputs[index+1]) {
+          inputs[index+1].focus();
+        }
+
+      },20);
+
+      return;
+
+    }
+
+
+    const next =
+      table.rows[index+1];
+
+    if (
+      name &&
+      !next.name.trim()
+    ) {
+
+      next.name=
+        nextName(
+          table,
+          name
+        );
+
+      save();
+      renderTable();
+
+    }
+
+    setTimeout(() => {
+
+      const inputs =
+        document.querySelectorAll(
+          ".template-input"
+        );
+
+      if (inputs[index+1]) {
+
+        inputs[index+1].focus();
+        inputs[index+1].select();
+
+      }
+
+    },20);
+
+  }
+
+
+  /* BACKSPACE */
+
+  if (
+    event.key==="Backspace" &&
+    input.value.trim()===""
+  ) {
+
+    if (table.rows.length<=1) {
+      return;
+    }
+
+    event.preventDefault();
+
+    table.rows.splice(index,1);
+
+    save();
+    renderTable();
+
+    setTimeout(() => {
+
+      const inputs =
+        document.querySelectorAll(
+          ".template-input"
+        );
+
+      const focusIndex=
+        Math.max(0,index-1);
+
+      if (inputs[focusIndex]) {
+        inputs[focusIndex].focus();
+      }
+
+    },20);
+
+  }
+
+}
+
+
+/* =====================================================
+   UPDATE NAME
+===================================================== */
+
+function updateName(rowId,value) {
+
+  const table=currentTable();
+
+  if (!table) return;
+
+  const row =
+    table.rows.find(
+      r=>r.id===rowId
+    );
+
+  if (!row) return;
+
+  row.name=value;
+
+  save();
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function setStatus(rowId,status) {
+
+  const table=currentTable();
+
+  if (!table) return;
+
+  const row =
+    table.rows.find(
+      r=>r.id===rowId
+    );
+
+  if (!row) return;
+
+  if (row.status===status) {
+    row.status="";
+  } else {
+    row.status=status;
+  }
+
+  save();
+  renderTable();
+
+}
+
+
+/* =====================================================
+   REMOVE ROW
+===================================================== */
+
+function removeRow(rowId) {
+
+  const table=currentTable();
+
+  if (!table) return;
+
+  table.rows =
+    table.rows.filter(
+      r=>r.id!==rowId
+    );
+
+  save();
+  renderTable();
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function render() {
+
+  renderTabs();
+  renderTable();
+
+}
+
+
+/* =====================================================
+   RENDER TABS
+===================================================== */
+
+function renderTabs() {
+
+  const tabs=
+    document.getElementById("tabs");
+
+  tabs.innerHTML="";
+
+  app.tables.forEach(table => {
+
+    const button=
+      document.createElement("button");
+
+    button.className=
+      "tab"+
+      (
+        table.id===app.activeTableId
+          ?" active"
+          :""
+      );
+
+    button.innerHTML=`
+      ${escapeHTML(table.name)}
+      <span class="tab-x" title="Delete table">×</span>
+    `;
+
+    button.onclick=function(event) {
+
+      if (
+        event.target.classList.contains(
+          "tab-x"
+        )
+      ) {
+
+        deleteTable(
+          event,
+          table.id
+        );
+
+        return;
+
+      }
+
+      switchTable(table.id);
+
+    };
+
+    button.ondblclick=function(event) {
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      renameTable(table.id);
+
+    };
+
+    tabs.appendChild(button);
+
+  });
+
+}
+
+
+/* =====================================================
+   RENDER TABLE
+===================================================== */
+
+function renderTable() {
+
+  const body=
+    document.getElementById("tableBody");
+
+  const empty=
+    document.getElementById("emptyMessage");
+
+  body.innerHTML="";
+
+  const table=currentTable();
+
+  if (
+    !table ||
+    table.rows.length===0
+  ) {
+
+    empty.style.display="block";
+    return;
+
+  }
+
+  empty.style.display="none";
+
+  table.rows.forEach((row,index) => {
+
+    const tr=
+      document.createElement("tr");
+
+    tr.innerHTML=`
+
+      <td class="col-number">
+        ${index+1}
+      </td>
+
+      <td>
+
+        <textarea
+          class="template-input"
+          placeholder="Enter template name..."
+          oninput="updateName('${row.id}',this.value)"
+          onkeydown="keydown(event,'${row.id}')"
+        >${escapeHTML(row.name)}</textarea>
+
+      </td>
+
+      <td>
+
+        <div class="status-box">
+
+          <button
+            class="status u ${row.status==="U"?"active":""}"
+            onclick="setStatus('${row.id}','U')"
+          >
+            U
+          </button>
+
+          <button
+            class="status m ${row.status==="M"?"active":""}"
+            onclick="setStatus('${row.id}','M')"
+          >
+            M
+          </button>
+
+        </div>
+
+      </td>
+
+      <td class="col-delete">
+
+        <button
+          class="delete-row"
+          onclick="removeRow('${row.id}')"
+          title="Delete row"
+        >
+          ×
+        </button>
+
+      </td>
+
+    `;
+
+    body.appendChild(tr);
+
+  });
+
+}
+
+
+/* =====================================================
+   IMPORT
+===================================================== */
+
+function toggleImport() {
+
+  const panel=
+    document.getElementById("importPanel");
+
+  panel.classList.toggle("open");
+
+  if (
+    panel.classList.contains("open")
+  ) {
+
+    document
+      .getElementById("importTextarea")
+      .focus();
+
+  }
+
+}
+
+
+function clearImport() {
+
+  document
+    .getElementById("importTextarea")
+    .value="";
+
+}
+
+
+/* =====================================================
+   FIND FAMILY TABLE
+===================================================== */
+
+function findFamilyTable(family) {
+
+  return app.tables.find(
+    table=>table.family===family
+  );
+
+}
+
+
+/* =====================================================
+   IMPORT DATA
+===================================================== */
+
+function importData() {
+
+  const textarea=
+    document.getElementById(
+      "importTextarea"
+    );
+
+  const input=textarea.value;
+
+  if (!input.trim()) {
+
+    alert(
+      "Paste some data first."
+    );
+
+    return;
+
+  }
+
+  const lines=
+    input.split(/\r?\n/);
+
+  const groups=new Map();
+
+  lines.forEach(raw => {
+
+    let line=raw.trim();
+
+    if (!line) return;
+
+    line=
+      line.replace(
+        /\t+/g,
+        " "
+      );
+
+    let status="";
+
+    const match=
+      line.match(
+        /\s+([mu])\s*$/i
+      );
+
+    if (match) {
+
+      status=
+        match[1].toUpperCase();
+
+      line=
+        line
+          .slice(0,match.index)
+          .trim();
+
+    }
+
+    if (!line) return;
+
+    const family=
+      getBaseName(line);
+
+    if (!groups.has(family)) {
+      groups.set(family,[]);
+    }
+
+    groups
+      .get(family)
+      .push({
+        name:line,
+        status:status
+      });
+
+  });
+
+
+  let totalImported=0;
+
+
+  groups.forEach((rows,family) => {
+
+    let table=
+      findFamilyTable(family);
+
+
+    if (!table) {
+
+      table={
+        id:id(),
+        name:family,
+        family:family,
+        rows:[]
+      };
+
+      app.tables.push(table);
+
+    }
+
+
+    rows.forEach(item => {
+
+      const existing=
+        table.rows.find(
+          row =>
+            row.name===item.name
+        );
+
+
+      if (existing) {
+
+        if (item.status) {
+          existing.status=
+            item.status;
+        }
+
+      } else {
+
+        table.rows.push(
+          newRow(
+            item.name,
+            item.status
+          )
+        );
+
+      }
+
+      totalImported++;
+
+    });
+
+  });
+
+
+  const firstFamily=
+    groups.keys().next().value;
+
+  const firstTable=
+    findFamilyTable(firstFamily);
+
+  if (firstTable) {
+    app.activeTableId=
+      firstTable.id;
+  }
+
+
+  save();
+  render();
+
+  textarea.value="";
+
+  alert(
+    `${totalImported} row${
+      totalImported===1?"":"s"
+    } imported into ${
+      groups.size
+    } table${
+      groups.size===1?"":"s"
+    }.`
+  );
+
+}
+
+
+/* =====================================================
+   CLEAR
+===================================================== */
+
+function clearTable() {
+
+  const table=currentTable();
+
+  if (!table) return;
+
+  if (table.rows.length===0) {
+    return;
+  }
+
+  if (
+    !confirm(
+      `Clear all rows from "${table.name}"?`
+    )
+  ) {
+    return;
+  }
+
+  table.rows=[];
+
+  save();
+  renderTable();
+
+}
+
+
+/* =====================================================
+   DOWNLOAD MODAL
+===================================================== */
+
+function openDownload(status) {
+
+  downloadStatus=status;
+
+  const modal=
+    document.getElementById(
+      "downloadModal"
+    );
+
+  const filename=
+    document.getElementById(
+      "downloadFilename"
+    );
+
+  const info=
+    document.getElementById(
+      "downloadInfo"
+    );
+
+
+  if (status==="U") {
+
+    filename.value="utility";
+
+  } else {
+
+    filename.value="marketing";
+
+  }
+
+
+  const table=currentTable();
+
+  const currentCount=
+    table
+      ? table.rows.filter(
+          r=>r.status===status
+        ).length
+      : 0;
+
+  const allCount=
+    app.tables.reduce(
+      (total,t) =>
+        total+
+        t.rows.filter(
+          r=>r.status===status
+        ).length,
+      0
+    );
+
+
+  info.innerHTML=`
+    <strong>${status==="U"?"Utility":"Marketing"}</strong>
+    templates:
+    ${currentCount} in current table,
+    ${allCount} in all tables.
+    <br>
+    The TXT file will contain only template names,
+    one per line.
+  `;
+
+
+  /*
+    Change button colors according
+    to U or M.
+  */
+
+  document
+    .querySelectorAll(".download-option")
+    .forEach(btn => {
+
+      btn.classList.remove("u","m");
+
+      btn.classList.add(
+        status==="U" ? "u" : "m"
+      );
+
+    });
+
+
+  modal.classList.add("open");
+
+  setTimeout(() => {
+
+    filename.focus();
+    filename.select();
+
+  },30);
+
+}
+
+
+function closeDownload() {
+
+  document
+    .getElementById(
+      "downloadModal"
+    )
+    .classList.remove("open");
+
+}
+
+
+/* Close when clicking outside */
+
+document
+  .getElementById("downloadModal")
+  .addEventListener(
+    "click",
+    function(event) {
+
+      if (
+        event.target===
+        this
+      ) {
+
+        closeDownload();
+
+      }
+
+    }
+  );
+
+
+/* Escape closes modal */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key==="Escape"
+    ) {
+
+      closeDownload();
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   DOWNLOAD TXT
+===================================================== */
+
+function downloadTxt(scope) {
+
+  let rows=[];
+
+
+  /*
+    CURRENT TABLE
+  */
+
+  if (scope==="current") {
+
+    const table=currentTable();
+
+    if (!table) {
+
+      alert(
+        "No table selected."
+      );
+
+      return;
+
+    }
+
+    rows=
+      table.rows.filter(
+        row =>
+          row.status===downloadStatus &&
+          row.name.trim()
+      );
+
+  }
+
+
+  /*
+    ALL TABLES
+  */
+
+  if (scope==="all") {
+
+    app.tables.forEach(table => {
+
+      table.rows.forEach(row => {
+
+        if (
+          row.status===downloadStatus &&
+          row.name.trim()
+        ) {
+
+          rows.push(row);
+
+        }
+
+      });
+
+    });
+
+  }
+
+
+  if (rows.length===0) {
+
+    alert(
+      `No ${
+        downloadStatus==="U"
+          ? "Utility"
+          : "Marketing"
+      } templates found.`
+    );
+
+    return;
+
+  }
+
+
+  /*
+    Remove exact duplicate names
+    from All Tables.
+
+    This prevents the same template
+    being written twice if it exists
+    in multiple tables.
+  */
+
+  const uniqueNames=[];
+  const seen=new Set();
+
+  rows.forEach(row => {
+
+    const name=row.name.trim();
+
+    if (!seen.has(name)) {
+
+      seen.add(name);
+      uniqueNames.push(name);
+
+    }
+
+  });
+
+
+  const text=
+    uniqueNames.join("\n")+
+    "\n";
+
+
+  let filename=
+    document
+      .getElementById(
+        "downloadFilename"
+      )
+      .value
+      .trim();
+
+
+  if (!filename) {
+
+    filename=
+      downloadStatus==="U"
+        ? "utility"
+        : "marketing";
+
+  }
+
+
+  /*
+    Remove .txt if user typed it,
+    then add it once.
+  */
+
+  filename=
+    filename.replace(
+      /\.txt$/i,
+      ""
+    );
+
+
+  /*
+    Make filename safe.
+  */
+
+  filename=
+    filename.replace(
+      /[<>:"/\\|?*]/g,
+      "_"
+    );
+
+
+  const blob=
+    new Blob(
+      [text],
+      {
+        type:
+          "text/plain;charset=utf-8"
+      }
+    );
+
+
+  const url=
+    URL.createObjectURL(blob);
+
+
+  const link=
+    document.createElement("a");
+
+  link.href=url;
+
+  link.download=
+    filename+".txt";
+
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+  URL.revokeObjectURL(url);
+
+  closeDownload();
+
+}
+
+
+/* =====================================================
+   DOWNLOAD CSV
+===================================================== */
+
+function downloadCSV() {
+
+  const table=currentTable();
+
+  if (
+    !table ||
+    table.rows.length===0
+  ) {
+
+    alert(
+      "There is nothing to download."
+    );
+
+    return;
+
+  }
+
+
+  let csv=
+    "Template Name,Status\n";
+
+
+  table.rows.forEach(row => {
+
+    const name=
+      String(row.name||"")
+        .replace(/"/g,'""');
+
+    const status=
+      row.status||"";
+
+    csv+=
+      `"${name}","${status}"\n`;
+
+  });
+
+
+  const blob=
+    new Blob(
+      [csv],
+      {
+        type:
+          "text/csv;charset=utf-8"
+      }
+    );
+
+
+  const url=
+    URL.createObjectURL(blob);
+
+
+  const link=
+    document.createElement("a");
+
+  link.href=url;
+
+  link.download=
+    (
+      table.name
+        .replace(
+          /[^a-z0-9_-]/gi,
+          "_"
+        )
+      || "table"
+    )+".csv";
+
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+load();
+
+</script>
+
+</body>
+</html>
