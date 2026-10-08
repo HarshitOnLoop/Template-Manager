@@ -2,64 +2,63 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Template Manager</title>
 
 <style>
-:root {
+:root{
   --text:#24292f;
   --muted:#57606a;
   --border:#d0d7de;
+  --bg:#fff;
   --header:#f6f8fa;
   --blue:#0969da;
   --green:#1a7f37;
-  --green-bg:#dafbe1;
+  --greenbg:#dafbe1;
   --red:#cf222e;
-  --red-bg:#ffebe9;
+  --redbg:#ffebe9;
 }
 
-* {
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
-body {
+body{
   margin:0;
-  background:#fff;
+  background:var(--bg);
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
   font-size:13px;
 }
 
-.container {
-  max-width:1100px;
+.container{
+  max-width:1150px;
   margin:auto;
-  padding:18px;
+  padding:16px;
 }
 
-.header {
+.header{
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:10px;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
 
-.header-title {
+.title{
   font-size:16px;
-  font-weight:600;
+  font-weight:700;
 }
 
-.actions {
+.actions{
   display:flex;
-  gap:5px;
   flex-wrap:wrap;
+  gap:5px;
 }
 
-button {
+button{
   font-family:inherit;
 }
 
-.btn {
+.btn{
   height:29px;
   padding:0 9px;
   border:1px solid var(--border);
@@ -67,90 +66,74 @@ button {
   background:#f6f8fa;
   color:var(--text);
   font-size:12px;
-  font-weight:500;
+  font-weight:600;
   cursor:pointer;
 }
 
-.btn:hover {
+.btn:hover{
   background:#eef1f4;
 }
 
-.btn-blue {
+.btn-blue{
   background:var(--blue);
-  color:#fff;
   border-color:var(--blue);
+  color:white;
 }
 
-.btn-green {
+.btn-green{
   color:var(--green);
-  border-color:#b7dfc1;
   background:#f0fff4;
 }
 
-.btn-green:hover {
-  background:var(--green-bg);
-}
-
-.btn-red {
+.btn-red{
   color:var(--red);
-  border-color:#ffc7c7;
   background:#fff5f5;
 }
 
-.btn-red:hover {
-  background:var(--red-bg);
-}
-
-.btn-danger {
-  color:var(--red);
-}
-
-/* IMPORT */
-
-.import-panel {
+.import-panel{
   display:none;
-  padding:10px;
   margin-bottom:10px;
+  padding:10px;
   border:1px solid var(--border);
   border-radius:6px;
   background:#f6f8fa;
 }
 
-.import-panel.open {
+.import-panel.open{
   display:block;
 }
 
-.import-title {
-  font-weight:600;
+.import-title{
+  font-weight:700;
   margin-bottom:5px;
 }
 
-.import-help {
+.import-help{
   color:var(--muted);
   font-size:11px;
   line-height:17px;
   margin-bottom:7px;
 }
 
-.import-textarea {
+.import-textarea{
   width:100%;
-  min-height:190px;
+  min-height:180px;
+  resize:vertical;
   padding:8px;
   border:1px solid var(--border);
   border-radius:6px;
   outline:none;
-  resize:vertical;
   font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
   font-size:12px;
   line-height:18px;
 }
 
-.import-textarea:focus {
+.import-textarea:focus{
   border-color:var(--blue);
   box-shadow:0 0 0 2px rgba(9,105,218,.15);
 }
 
-.import-buttons {
+.import-buttons{
   display:flex;
   gap:5px;
   margin-top:7px;
@@ -158,61 +141,58 @@ button {
 
 /* TABS */
 
-.tabs-wrapper {
+.tabs-wrapper{
   display:flex;
-  align-items:center;
-  border-bottom:1px solid var(--border);
+  align-items:flex-end;
   overflow-x:auto;
+  border-bottom:1px solid var(--border);
 }
 
-.tabs {
+.tabs{
   display:flex;
   gap:2px;
 }
 
-.tab {
+.tab{
   height:34px;
   padding:0 10px;
   border:1px solid transparent;
-  border-bottom:none;
+  border-bottom:0;
   border-radius:6px 6px 0 0;
   background:transparent;
   color:var(--muted);
   font-size:12px;
-  font-weight:500;
+  font-weight:600;
   cursor:pointer;
   white-space:nowrap;
 }
 
-.tab:hover {
+.tab:hover{
   background:#f6f8fa;
-  color:var(--text);
 }
 
-.tab.active {
+.tab.active{
   background:#fff;
   color:var(--text);
   border-color:var(--border);
-  font-weight:600;
 }
 
-.tab-x {
-  margin-left:6px;
+.tab-delete{
+  margin-left:5px;
   color:#8c959f;
 }
 
-.tab-x:hover {
+.tab-delete:hover{
   color:var(--red);
 }
 
-.new-table {
+.new-table{
   height:27px;
-  margin-left:5px;
-  margin-bottom:3px;
+  margin:0 0 3px 5px;
   padding:0 8px;
   border:1px solid var(--border);
   border-radius:5px;
-  background:#fff;
+  background:white;
   color:var(--muted);
   cursor:pointer;
   font-size:11px;
@@ -220,66 +200,69 @@ button {
 
 /* TABLE */
 
-.table-wrapper {
+.table-wrapper{
   border:1px solid var(--border);
-  border-top:none;
+  border-top:0;
   border-radius:0 0 6px 6px;
-  overflow-x:auto;
+  overflow:auto;
 }
 
-table {
+table{
   width:100%;
   border-collapse:collapse;
   table-layout:fixed;
 }
 
-th {
+th{
   height:32px;
   padding:6px 8px;
   background:var(--header);
   border-bottom:1px solid var(--border);
   text-align:left;
   font-size:12px;
-  font-weight:600;
+  font-weight:700;
 }
 
-td {
-  height:40px;
+td{
   padding:4px 7px;
   border-bottom:1px solid #d8dee4;
   vertical-align:middle;
 }
 
-tr:last-child td {
-  border-bottom:none;
+tr:last-child td{
+  border-bottom:0;
 }
 
-tr:hover {
+tr:hover{
   background:#f6f8fa;
 }
 
-.col-number {
-  width:42px;
+.col-num{
+  width:45px;
   text-align:center;
   color:var(--muted);
 }
 
-.col-name {
-  width:70%;
+.col-name{
+  width:auto;
 }
 
-.col-status {
-  width:22%;
+.col-status{
+  width:95px;
 }
 
-.col-delete {
-  width:45px;
+.col-table{
+  width:180px;
+}
+
+.col-delete{
+  width:42px;
   text-align:center;
 }
 
 /* INPUT */
 
-.template-input {
+.template-input{
   display:block;
   width:100%;
   min-height:30px;
@@ -288,7 +271,7 @@ tr:hover {
   border:1px solid transparent;
   border-radius:5px;
   background:transparent;
-  color:#24292f;
+  color:var(--text);
   outline:none;
   resize:vertical;
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
@@ -297,55 +280,54 @@ tr:hover {
   line-height:19px;
 }
 
-.template-input:hover {
+.template-input:hover{
   background:#fff;
   border-color:var(--border);
 }
 
-.template-input:focus {
+.template-input:focus{
   background:#fff;
   border-color:var(--blue);
   box-shadow:0 0 0 2px rgba(9,105,218,.15);
 }
 
-.template-input::placeholder {
+.template-input::placeholder{
   color:#8c959f;
   font-weight:400;
 }
 
 /* STATUS */
 
-.status-box {
+.status-box{
   display:flex;
-  gap:5px;
+  gap:4px;
 }
 
-.status {
+.status{
   width:30px;
   height:26px;
-  padding:0;
   border:1px solid var(--border);
   border-radius:5px;
-  background:#fff;
+  background:white;
   color:var(--muted);
   font-size:12px;
-  font-weight:700;
+  font-weight:800;
   cursor:pointer;
 }
 
-.status.u.active {
-  background:var(--green-bg);
+.status.u.active{
+  background:var(--greenbg);
   border-color:#4ac26b;
   color:var(--green);
 }
 
-.status.m.active {
-  background:var(--red-bg);
+.status.m.active{
+  background:var(--redbg);
   border-color:#ff8182;
   color:var(--red);
 }
 
-.delete-row {
+.delete-row{
   width:27px;
   height:26px;
   border:1px solid transparent;
@@ -356,22 +338,19 @@ tr:hover {
   cursor:pointer;
 }
 
-.delete-row:hover {
-  background:var(--red-bg);
-  border-color:#ff8182;
+.delete-row:hover{
+  background:var(--redbg);
   color:var(--red);
 }
 
-.empty {
+.empty{
   padding:35px;
   text-align:center;
   color:var(--muted);
   font-size:12px;
 }
 
-/* FOOTER */
-
-.footer {
+.footer{
   display:flex;
   justify-content:space-between;
   margin-top:7px;
@@ -379,20 +358,20 @@ tr:hover {
   font-size:11px;
 }
 
-.saved {
+.saved{
   display:flex;
   align-items:center;
   gap:5px;
 }
 
-.saved-dot {
+.saved-dot{
   width:6px;
   height:6px;
   border-radius:50%;
   background:var(--green);
 }
 
-kbd {
+kbd{
   padding:1px 4px;
   border:1px solid var(--border);
   border-bottom-color:#afb8c1;
@@ -402,9 +381,9 @@ kbd {
   font-size:10px;
 }
 
-/* DOWNLOAD MODAL */
+/* MODAL */
 
-.modal-overlay {
+.modal-overlay{
   display:none;
   position:fixed;
   inset:0;
@@ -414,38 +393,37 @@ kbd {
   z-index:1000;
 }
 
-.modal-overlay.open {
+.modal-overlay.open{
   display:flex;
 }
 
-.modal {
-  width:360px;
+.modal{
+  width:370px;
   max-width:calc(100% - 24px);
-  background:#fff;
+  background:white;
   border:1px solid var(--border);
   border-radius:8px;
   box-shadow:0 8px 30px rgba(27,31,36,.18);
 }
 
-.modal-header {
+.modal-header{
   padding:12px 14px;
   border-bottom:1px solid var(--border);
-  font-size:14px;
-  font-weight:600;
+  font-weight:700;
 }
 
-.modal-body {
+.modal-body{
   padding:14px;
 }
 
-.modal-label {
+.modal-label{
   display:block;
   margin-bottom:5px;
   font-size:12px;
-  font-weight:600;
+  font-weight:700;
 }
 
-.filename-input {
+.filename-input{
   width:100%;
   height:32px;
   padding:5px 8px;
@@ -455,75 +433,68 @@ kbd {
   font-size:13px;
 }
 
-.filename-input:focus {
+.filename-input:focus{
   border-color:var(--blue);
   box-shadow:0 0 0 2px rgba(9,105,218,.15);
 }
 
-.download-info {
+.download-info{
   margin-top:9px;
   color:var(--muted);
   font-size:11px;
   line-height:16px;
 }
 
-.download-options {
+.download-options{
   display:flex;
   gap:6px;
   margin-top:12px;
 }
 
-.download-option {
+.download-option{
   flex:1;
-  height:32px;
+  height:34px;
   border:1px solid var(--border);
   border-radius:6px;
   background:#f6f8fa;
   cursor:pointer;
   font-size:12px;
-  font-weight:600;
+  font-weight:700;
 }
 
-.download-option:hover {
-  background:#eef1f4;
-}
-
-.download-option.u {
+.download-option.u{
   color:var(--green);
 }
 
-.download-option.m {
+.download-option.m{
   color:var(--red);
 }
 
-.modal-footer {
+.modal-footer{
   display:flex;
   justify-content:flex-end;
-  gap:5px;
   padding:10px 14px;
   border-top:1px solid var(--border);
 }
 
-@media(max-width:650px) {
-
-  .container {
-    padding:12px 8px;
+@media(max-width:700px){
+  .container{
+    padding:10px 7px;
   }
 
-  .header {
+  .header{
     align-items:flex-start;
     flex-direction:column;
   }
 
-  table {
-    min-width:650px;
+  table{
+    min-width:700px;
   }
 
-  .footer {
+  .footer{
     flex-direction:column;
     gap:5px;
   }
-
 }
 </style>
 </head>
@@ -534,13 +505,13 @@ kbd {
 
   <div class="header">
 
-    <div class="header-title">
+    <div class="title">
       Template Manager
     </div>
 
     <div class="actions">
 
-      <button class="btn btn-green" onclick="addRow(true)">
+      <button class="btn btn-green" onclick="addRow()">
         + New row
       </button>
 
@@ -560,7 +531,7 @@ kbd {
         ↓ CSV
       </button>
 
-      <button class="btn btn-danger" onclick="clearTable()">
+      <button class="btn" onclick="clearCurrentTable()">
         Clear
       </button>
 
@@ -578,30 +549,20 @@ kbd {
     </div>
 
     <div class="import-help">
-
-      Paste your Notepad data here.
-      Different template families automatically go into different tables.
-
-      <br><br>
-
-      Example:
-
-      <code>
-        5_days_yoga_trial_day_1_morning_class_reminder m
-      </code>
-
-      <br>
-
-      <code>
-        5_days_yoga_trial_day_1_morning_class_reminder_1 u
-      </code>
-
+      Paste your Notepad data below.
+      Template families are automatically placed into separate tables.
+      The All Templates table always shows everything.
     </div>
 
     <textarea
       id="importTextarea"
       class="import-textarea"
-      placeholder="Paste your data here..."
+      placeholder="5_days_yoga_trial_day_1_morning_class_reminder m
+5_days_yoga_trial_day_1_morning_class_reminder_1 m
+5_days_yoga_trial_day_1_morning_class_reminder_2 u
+
+5_days_yoga_trial_day_1_evening_feedback m
+5_days_yoga_trial_day_1_evening_feedback_1 u"
     ></textarea>
 
     <div class="import-buttons">
@@ -642,25 +603,7 @@ kbd {
 
     <table>
 
-      <thead>
-
-        <tr>
-
-          <th class="col-number">#</th>
-
-          <th class="col-name">
-            Template name
-          </th>
-
-          <th class="col-status">
-            Status
-          </th>
-
-          <th class="col-delete"></th>
-
-        </tr>
-
-      </thead>
+      <thead id="tableHead"></thead>
 
       <tbody id="tableBody"></tbody>
 
@@ -677,28 +620,16 @@ kbd {
   <div class="footer">
 
     <div class="saved">
-
       <span class="saved-dot"></span>
-
       Saved locally
-
     </div>
 
     <div>
-
-      <kbd>Enter</kbd>
-      next row
-
+      <kbd>Enter</kbd> next row
       &nbsp;·&nbsp;
-
-      <kbd>Shift + Enter</kbd>
-      new line
-
+      <kbd>Shift + Enter</kbd> new line
       &nbsp;·&nbsp;
-
-      <kbd>Backspace</kbd>
-      delete empty row
-
+      <kbd>Backspace</kbd> delete empty row
     </div>
 
   </div>
@@ -734,14 +665,16 @@ kbd {
       <div class="download-options">
 
         <button
-          class="download-option u"
+          id="downloadCurrent"
+          class="download-option"
           onclick="downloadTxt('current')"
         >
           Current Table
         </button>
 
         <button
-          class="download-option u"
+          id="downloadAll"
+          class="download-option"
           onclick="downloadTxt('all')"
         >
           All Tables
@@ -753,10 +686,7 @@ kbd {
 
     <div class="modal-footer">
 
-      <button
-        class="btn"
-        onclick="closeDownload()"
-      >
+      <button class="btn" onclick="closeDownload()">
         Cancel
       </button>
 
@@ -770,72 +700,108 @@ kbd {
 <script>
 
 /* =====================================================
-   STORAGE
+   DATA
 ===================================================== */
 
-const STORAGE_KEY = "template_manager_v7";
+const STORAGE_KEY = "template_manager_v8";
 
 let app = {
   activeTableId:null,
   tables:[]
 };
 
-let downloadStatus = "U";
+let downloadStatus="U";
 
 
 /* =====================================================
-   ID
+   HELPERS
 ===================================================== */
 
-function id() {
-
-  return Date.now() + "_" +
-    Math.random()
-      .toString(36)
-      .substring(2,9);
-
+function makeId(){
+  return Date.now()+"_"+Math.random()
+    .toString(36)
+    .slice(2,9);
 }
 
-
-/* =====================================================
-   ROW
-===================================================== */
-
-function newRow(name="", status="") {
-
+function makeRow(name="",status=""){
   return {
-    id:id(),
+    id:makeId(),
     name:name,
     status:status
   };
-
 }
 
+function escapeHTML(value){
+  return String(value||"")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
 
-/* =====================================================
-   SAVE
-===================================================== */
-
-function save() {
-
+function save(){
   localStorage.setItem(
     STORAGE_KEY,
     JSON.stringify(app)
   );
+}
 
+function currentTable(){
+  return app.tables.find(
+    t=>t.id===app.activeTableId
+  );
 }
 
 
 /* =====================================================
-   CURRENT TABLE
+   ALL TEMPLATES
 ===================================================== */
 
-function currentTable() {
+function isAllTable(){
+  return app.activeTableId==="__ALL__";
+}
 
-  return app.tables.find(
-    t => t.id === app.activeTableId
+function allRows(){
+
+  const result=[];
+
+  app.tables.forEach(table=>{
+
+    table.rows.forEach(row=>{
+
+      result.push({
+        row:row,
+        table:table
+      });
+
+    });
+
+  });
+
+  return result;
+}
+
+
+/* =====================================================
+   BASE NAME
+===================================================== */
+
+function getBaseName(name){
+
+  name=name.trim();
+
+  if(!name) return "";
+
+  const match=name.match(
+    /^(.*)_(\d+)$/
   );
 
+  if(match){
+    return match[1];
+  }
+
+  return name;
 }
 
 
@@ -843,38 +809,45 @@ function currentTable() {
    LOAD
 ===================================================== */
 
-function load() {
+function load(){
 
-  const saved =
+  const saved=
     localStorage.getItem(STORAGE_KEY);
 
-  if (saved) {
+  if(saved){
 
-    try {
-
-      app = JSON.parse(saved);
-
-    } catch {
-
-      app = {
-        activeTableId:null,
+    try{
+      app=JSON.parse(saved);
+    }catch{
+      app={
+        activeTableId:"__ALL__",
         tables:[]
       };
-
     }
 
   }
 
-
-  if (!Array.isArray(app.tables)) {
+  if(!Array.isArray(app.tables)){
     app.tables=[];
   }
 
+  app.tables.forEach(table=>{
 
-  if (app.tables.length===0) {
+    if(!Array.isArray(table.rows)){
+      table.rows=[];
+    }
+
+    if(!table.id){
+      table.id=makeId();
+    }
+
+  });
+
+
+  if(app.tables.length===0){
 
     const table={
-      id:id(),
+      id:makeId(),
       name:"Table 1",
       family:null,
       rows:[]
@@ -882,500 +855,25 @@ function load() {
 
     app.tables.push(table);
 
-    app.activeTableId=table.id;
-
   }
 
 
-  if (
-    !app.tables.some(
-      t => t.id===app.activeTableId
+  if(
+    !app.activeTableId ||
+    (
+      app.activeTableId!=="__ALL__" &&
+      !app.tables.some(
+        t=>t.id===app.activeTableId
+      )
     )
-  ) {
+  ){
 
-    app.activeTableId =
-      app.tables[0].id;
-
-  }
-
-
-  save();
-  render();
-
-}
-
-
-/* =====================================================
-   ESCAPE
-===================================================== */
-
-function escapeHTML(value) {
-
-  return String(value || "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =====================================================
-   FAMILY NAME
-===================================================== */
-
-function getBaseName(name) {
-
-  name=name.trim();
-
-  if (!name) return "";
-
-  const match =
-    name.match(/^(.*)_(\d+)$/);
-
-  if (match) {
-    return match[1];
-  }
-
-  return name;
-
-}
-
-
-/* =====================================================
-   CREATE TABLE
-===================================================== */
-
-function createTable() {
-
-  const name =
-    prompt(
-      "Table name:",
-      `Table ${app.tables.length+1}`
-    );
-
-  if (
-    name===null ||
-    !name.trim()
-  ) {
-    return;
-  }
-
-  const table={
-    id:id(),
-    name:name.trim(),
-    family:null,
-    rows:[]
-  };
-
-  app.tables.push(table);
-
-  app.activeTableId=table.id;
-
-  save();
-  render();
-
-}
-
-
-/* =====================================================
-   RENAME TABLE
-===================================================== */
-
-function renameTable(tableId) {
-
-  const table =
-    app.tables.find(
-      t => t.id===tableId
-    );
-
-  if (!table) return;
-
-  const name =
-    prompt(
-      "Rename table:",
-      table.name
-    );
-
-  if (
-    name===null ||
-    !name.trim()
-  ) {
-    return;
-  }
-
-  table.name=name.trim();
-
-  save();
-  renderTabs();
-
-}
-
-
-/* =====================================================
-   DELETE TABLE
-===================================================== */
-
-function deleteTable(event,tableId) {
-
-  event.stopPropagation();
-
-  if (app.tables.length<=1) {
-
-    alert(
-      "You must keep at least one table."
-    );
-
-    return;
-
-  }
-
-  const table =
-    app.tables.find(
-      t => t.id===tableId
-    );
-
-  if (!table) return;
-
-  if (
-    !confirm(
-      `Delete "${table.name}"?`
-    )
-  ) {
-    return;
-  }
-
-  app.tables =
-    app.tables.filter(
-      t => t.id!==tableId
-    );
-
-  if (
-    app.activeTableId===tableId
-  ) {
-
-    app.activeTableId =
-      app.tables[0].id;
+    app.activeTableId="__ALL__";
 
   }
 
   save();
   render();
-
-}
-
-
-/* =====================================================
-   SWITCH TABLE
-===================================================== */
-
-function switchTable(tableId) {
-
-  app.activeTableId=tableId;
-
-  save();
-  render();
-
-}
-
-
-/* =====================================================
-   ADD ROW
-===================================================== */
-
-function addRow(focus=false) {
-
-  const table=currentTable();
-
-  if (!table) return;
-
-  table.rows.push(
-    newRow()
-  );
-
-  save();
-  renderTable();
-
-  if (focus) {
-
-    setTimeout(() => {
-
-      const inputs =
-        document.querySelectorAll(
-          ".template-input"
-        );
-
-      if (inputs.length) {
-        inputs[inputs.length-1].focus();
-      }
-
-    },20);
-
-  }
-
-}
-
-
-/* =====================================================
-   NEXT NAME
-===================================================== */
-
-function nextName(table,currentName) {
-
-  const base =
-    getBaseName(currentName);
-
-  if (!base) return "";
-
-  const names =
-    new Set(
-      table.rows
-        .map(r=>r.name.trim())
-        .filter(Boolean)
-    );
-
-  if (!names.has(base)) {
-    return base;
-  }
-
-  let number=1;
-
-  while (
-    names.has(
-      `${base}_${number}`
-    )
-  ) {
-
-    number++;
-
-  }
-
-  return `${base}_${number}`;
-
-}
-
-
-/* =====================================================
-   KEYBOARD
-===================================================== */
-
-function keydown(event,rowId) {
-
-  const table=currentTable();
-
-  if (!table) return;
-
-  const index =
-    table.rows.findIndex(
-      r=>r.id===rowId
-    );
-
-  if (index===-1) return;
-
-  const input=event.target;
-
-
-  /* ENTER */
-
-  if (
-    event.key==="Enter" &&
-    !event.shiftKey
-  ) {
-
-    event.preventDefault();
-
-    const name=input.value.trim();
-
-
-    if (
-      index===
-      table.rows.length-1
-    ) {
-
-      let generated="";
-
-      if (name) {
-        generated=
-          nextName(
-            table,
-            name
-          );
-      }
-
-      table.rows.push(
-        newRow(generated,"")
-      );
-
-      save();
-      renderTable();
-
-      setTimeout(() => {
-
-        const inputs =
-          document.querySelectorAll(
-            ".template-input"
-          );
-
-        if (inputs[index+1]) {
-          inputs[index+1].focus();
-        }
-
-      },20);
-
-      return;
-
-    }
-
-
-    const next =
-      table.rows[index+1];
-
-    if (
-      name &&
-      !next.name.trim()
-    ) {
-
-      next.name=
-        nextName(
-          table,
-          name
-        );
-
-      save();
-      renderTable();
-
-    }
-
-    setTimeout(() => {
-
-      const inputs =
-        document.querySelectorAll(
-          ".template-input"
-        );
-
-      if (inputs[index+1]) {
-
-        inputs[index+1].focus();
-        inputs[index+1].select();
-
-      }
-
-    },20);
-
-  }
-
-
-  /* BACKSPACE */
-
-  if (
-    event.key==="Backspace" &&
-    input.value.trim()===""
-  ) {
-
-    if (table.rows.length<=1) {
-      return;
-    }
-
-    event.preventDefault();
-
-    table.rows.splice(index,1);
-
-    save();
-    renderTable();
-
-    setTimeout(() => {
-
-      const inputs =
-        document.querySelectorAll(
-          ".template-input"
-        );
-
-      const focusIndex=
-        Math.max(0,index-1);
-
-      if (inputs[focusIndex]) {
-        inputs[focusIndex].focus();
-      }
-
-    },20);
-
-  }
-
-}
-
-
-/* =====================================================
-   UPDATE NAME
-===================================================== */
-
-function updateName(rowId,value) {
-
-  const table=currentTable();
-
-  if (!table) return;
-
-  const row =
-    table.rows.find(
-      r=>r.id===rowId
-    );
-
-  if (!row) return;
-
-  row.name=value;
-
-  save();
-
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-function setStatus(rowId,status) {
-
-  const table=currentTable();
-
-  if (!table) return;
-
-  const row =
-    table.rows.find(
-      r=>r.id===rowId
-    );
-
-  if (!row) return;
-
-  if (row.status===status) {
-    row.status="";
-  } else {
-    row.status=status;
-  }
-
-  save();
-  renderTable();
-
-}
-
-
-/* =====================================================
-   REMOVE ROW
-===================================================== */
-
-function removeRow(rowId) {
-
-  const table=currentTable();
-
-  if (!table) return;
-
-  table.rows =
-    table.rows.filter(
-      r=>r.id!==rowId
-    );
-
-  save();
-  renderTable();
-
 }
 
 
@@ -1383,26 +881,52 @@ function removeRow(rowId) {
    RENDER
 ===================================================== */
 
-function render() {
-
+function render(){
   renderTabs();
   renderTable();
-
 }
 
 
 /* =====================================================
-   RENDER TABS
+   TABS
 ===================================================== */
 
-function renderTabs() {
+function renderTabs(){
 
   const tabs=
     document.getElementById("tabs");
 
   tabs.innerHTML="";
 
-  app.tables.forEach(table => {
+
+  /* ALL TABLE */
+
+  const allButton=
+    document.createElement("button");
+
+  allButton.className=
+    "tab"+
+    (
+      isAllTable()
+      ?" active"
+      :""
+    );
+
+  allButton.innerHTML=
+    "All Templates";
+
+  allButton.onclick=()=>{
+    app.activeTableId="__ALL__";
+    save();
+    render();
+  };
+
+  tabs.appendChild(allButton);
+
+
+  /* NORMAL TABLES */
+
+  app.tables.forEach(table=>{
 
     const button=
       document.createElement("button");
@@ -1411,22 +935,23 @@ function renderTabs() {
       "tab"+
       (
         table.id===app.activeTableId
-          ?" active"
-          :""
+        ?" active"
+        :""
       );
 
     button.innerHTML=`
       ${escapeHTML(table.name)}
-      <span class="tab-x" title="Delete table">×</span>
+      <span class="tab-delete">×</span>
     `;
 
-    button.onclick=function(event) {
 
-      if (
+    button.onclick=function(event){
+
+      if(
         event.target.classList.contains(
-          "tab-x"
+          "tab-delete"
         )
-      ) {
+      ){
 
         deleteTable(
           event,
@@ -1434,14 +959,17 @@ function renderTabs() {
         );
 
         return;
-
       }
 
-      switchTable(table.id);
+      app.activeTableId=table.id;
+
+      save();
+      render();
 
     };
 
-    button.ondblclick=function(event) {
+
+    button.ondblclick=function(event){
 
       event.preventDefault();
       event.stopPropagation();
@@ -1449,6 +977,7 @@ function renderTabs() {
       renameTable(table.id);
 
     };
+
 
     tabs.appendChild(button);
 
@@ -1458,10 +987,49 @@ function renderTabs() {
 
 
 /* =====================================================
+   TABLE HEADER
+===================================================== */
+
+function renderHeader(){
+
+  const head=
+    document.getElementById("tableHead");
+
+  if(isAllTable()){
+
+    head.innerHTML=`
+      <tr>
+        <th class="col-num">#</th>
+        <th class="col-name">Template name</th>
+        <th class="col-status">Status</th>
+        <th class="col-table">Table</th>
+        <th class="col-delete"></th>
+      </tr>
+    `;
+
+  }else{
+
+    head.innerHTML=`
+      <tr>
+        <th class="col-num">#</th>
+        <th class="col-name">Template name</th>
+        <th class="col-status">Status</th>
+        <th class="col-delete"></th>
+      </tr>
+    `;
+
+  }
+
+}
+
+
+/* =====================================================
    RENDER TABLE
 ===================================================== */
 
-function renderTable() {
+function renderTable(){
+
+  renderHeader();
 
   const body=
     document.getElementById("tableBody");
@@ -1471,12 +1039,114 @@ function renderTable() {
 
   body.innerHTML="";
 
+
+  /* =========================
+     ALL
+  ========================= */
+
+  if(isAllTable()){
+
+    const rows=allRows();
+
+    if(rows.length===0){
+
+      empty.style.display="block";
+      return;
+
+    }
+
+    empty.style.display="none";
+
+
+    rows.forEach((item,index)=>{
+
+      const row=item.row;
+      const table=item.table;
+
+      const tr=
+        document.createElement("tr");
+
+      tr.innerHTML=`
+
+        <td class="col-num">
+          ${index+1}
+        </td>
+
+        <td>
+
+          <textarea
+            class="template-input"
+            oninput="updateAllName('${table.id}','${row.id}',this.value)"
+            onkeydown="allKeydown(event,'${table.id}','${row.id}')"
+          >${escapeHTML(row.name)}</textarea>
+
+        </td>
+
+        <td>
+
+          <div class="status-box">
+
+            <button
+              class="status u ${
+                row.status==="U"
+                ?"active"
+                :""
+              }"
+              onclick="setStatus('${table.id}','${row.id}','U')"
+            >
+              U
+            </button>
+
+            <button
+              class="status m ${
+                row.status==="M"
+                ?"active"
+                :""
+              }"
+              onclick="setStatus('${table.id}','${row.id}','M')"
+            >
+              M
+            </button>
+
+          </div>
+
+        </td>
+
+        <td>
+          ${escapeHTML(table.name)}
+        </td>
+
+        <td class="col-delete">
+
+          <button
+            class="delete-row"
+            onclick="removeRow('${table.id}','${row.id}')"
+          >
+            ×
+          </button>
+
+        </td>
+
+      `;
+
+      body.appendChild(tr);
+
+    });
+
+    return;
+  }
+
+
+  /* =========================
+     NORMAL TABLE
+  ========================= */
+
   const table=currentTable();
 
-  if (
+  if(
     !table ||
     table.rows.length===0
-  ) {
+  ){
 
     empty.style.display="block";
     return;
@@ -1485,14 +1155,15 @@ function renderTable() {
 
   empty.style.display="none";
 
-  table.rows.forEach((row,index) => {
+
+  table.rows.forEach((row,index)=>{
 
     const tr=
       document.createElement("tr");
 
     tr.innerHTML=`
 
-      <td class="col-number">
+      <td class="col-num">
         ${index+1}
       </td>
 
@@ -1502,7 +1173,7 @@ function renderTable() {
           class="template-input"
           placeholder="Enter template name..."
           oninput="updateName('${row.id}',this.value)"
-          onkeydown="keydown(event,'${row.id}')"
+          onkeydown="keyDown(event,'${row.id}')"
         >${escapeHTML(row.name)}</textarea>
 
       </td>
@@ -1512,15 +1183,23 @@ function renderTable() {
         <div class="status-box">
 
           <button
-            class="status u ${row.status==="U"?"active":""}"
-            onclick="setStatus('${row.id}','U')"
+            class="status u ${
+              row.status==="U"
+              ?"active"
+              :""
+            }"
+            onclick="setStatus('${table.id}','${row.id}','U')"
           >
             U
           </button>
 
           <button
-            class="status m ${row.status==="M"?"active":""}"
-            onclick="setStatus('${row.id}','M')"
+            class="status m ${
+              row.status==="M"
+              ?"active"
+              :""
+            }"
+            onclick="setStatus('${table.id}','${row.id}','M')"
           >
             M
           </button>
@@ -1533,8 +1212,7 @@ function renderTable() {
 
         <button
           class="delete-row"
-          onclick="removeRow('${row.id}')"
-          title="Delete row"
+          onclick="removeRow('${table.id}','${row.id}')"
         >
           ×
         </button>
@@ -1551,30 +1229,560 @@ function renderTable() {
 
 
 /* =====================================================
-   IMPORT
+   NEXT NAME
 ===================================================== */
 
-function toggleImport() {
+function nextName(table,name){
 
-  const panel=
-    document.getElementById("importPanel");
+  const base=
+    getBaseName(name);
 
-  panel.classList.toggle("open");
+  if(!base) return "";
 
-  if (
-    panel.classList.contains("open")
-  ) {
+  const names=new Set(
+    table.rows
+      .map(r=>r.name.trim())
+      .filter(Boolean)
+  );
 
-    document
-      .getElementById("importTextarea")
-      .focus();
+  if(!names.has(base)){
+    return base;
+  }
+
+  let n=1;
+
+  while(
+    names.has(`${base}_${n}`)
+  ){
+    n++;
+  }
+
+  return `${base}_${n}`;
+}
+
+
+/* =====================================================
+   ADD ROW
+===================================================== */
+
+function addRow(){
+
+  /*
+    New rows are added to the first
+    real table if All Templates is selected.
+  */
+
+  let table=currentTable();
+
+  if(!table){
+
+    table=app.tables[0];
+
+    app.activeTableId=table.id;
 
   }
+
+  table.rows.push(makeRow());
+
+  save();
+  render();
+
+  setTimeout(()=>{
+
+    const inputs=
+      document.querySelectorAll(
+        ".template-input"
+      );
+
+    if(inputs.length){
+      inputs[inputs.length-1].focus();
+    }
+
+  },20);
 
 }
 
 
-function clearImport() {
+/* =====================================================
+   ENTER IN NORMAL TABLE
+===================================================== */
+
+function keyDown(event,rowId){
+
+  if(
+    event.key!=="Enter" ||
+    event.shiftKey
+  ){
+
+    if(
+      event.key==="Backspace" &&
+      event.target.value.trim()===""
+    ){
+
+      const table=currentTable();
+
+      if(
+        table &&
+        table.rows.length>1
+      ){
+
+        event.preventDefault();
+
+        const index=
+          table.rows.findIndex(
+            r=>r.id===rowId
+          );
+
+        table.rows.splice(index,1);
+
+        save();
+        render();
+
+      }
+
+    }
+
+    return;
+  }
+
+
+  event.preventDefault();
+
+  const table=currentTable();
+
+  if(!table) return;
+
+  const index=
+    table.rows.findIndex(
+      r=>r.id===rowId
+    );
+
+  if(index<0) return;
+
+  const name=
+    event.target.value.trim();
+
+
+  if(index===table.rows.length-1){
+
+    let generated="";
+
+    if(name){
+      generated=
+        nextName(
+          table,
+          name
+        );
+    }
+
+    table.rows.push(
+      makeRow(generated,"")
+    );
+
+  }else{
+
+    const next=
+      table.rows[index+1];
+
+    if(
+      name &&
+      !next.name.trim()
+    ){
+
+      next.name=
+        nextName(
+          table,
+          name
+        );
+
+    }
+
+  }
+
+  save();
+  render();
+
+
+  setTimeout(()=>{
+
+    const inputs=
+      document.querySelectorAll(
+        ".template-input"
+      );
+
+    if(inputs[index+1]){
+      inputs[index+1].focus();
+    }
+
+  },20);
+
+}
+
+
+/* =====================================================
+   ENTER IN ALL TABLE
+===================================================== */
+
+function allKeydown(event,tableId,rowId){
+
+  if(
+    event.key!=="Enter" ||
+    event.shiftKey
+  ){
+
+    if(
+      event.key==="Backspace" &&
+      event.target.value.trim()===""
+    ){
+
+      removeRow(
+        tableId,
+        rowId
+      );
+
+    }
+
+    return;
+  }
+
+  event.preventDefault();
+
+  const table=
+    app.tables.find(
+      t=>t.id===tableId
+    );
+
+  if(!table) return;
+
+  const index=
+    table.rows.findIndex(
+      r=>r.id===rowId
+    );
+
+  if(index<0) return;
+
+  const name=
+    event.target.value.trim();
+
+  if(index===table.rows.length-1){
+
+    let generated="";
+
+    if(name){
+      generated=
+        nextName(
+          table,
+          name
+        );
+    }
+
+    table.rows.push(
+      makeRow(generated,"")
+    );
+
+  }else{
+
+    const next=
+      table.rows[index+1];
+
+    if(
+      name &&
+      !next.name.trim()
+    ){
+
+      next.name=
+        nextName(
+          table,
+          name
+        );
+
+    }
+
+  }
+
+  save();
+  render();
+
+
+  setTimeout(()=>{
+
+    const inputs=
+      document.querySelectorAll(
+        ".template-input"
+      );
+
+    /*
+      In All Templates the next row
+      might not be directly after the
+      current row in DOM, but because
+      tables are rendered in order,
+      index + 1 is correct.
+    */
+
+    const all=
+      allRows();
+
+    const currentIndex=
+      all.findIndex(
+        x=>
+          x.table.id===tableId &&
+          x.row.id===rowId
+      );
+
+    if(inputs[currentIndex+1]){
+      inputs[currentIndex+1].focus();
+    }
+
+  },20);
+
+}
+
+
+/* =====================================================
+   UPDATE
+===================================================== */
+
+function updateName(rowId,value){
+
+  const table=currentTable();
+
+  if(!table) return;
+
+  const row=
+    table.rows.find(
+      r=>r.id===rowId
+    );
+
+  if(!row) return;
+
+  row.name=value;
+
+  save();
+
+}
+
+
+function updateAllName(
+  tableId,
+  rowId,
+  value
+){
+
+  const table=
+    app.tables.find(
+      t=>t.id===tableId
+    );
+
+  if(!table) return;
+
+  const row=
+    table.rows.find(
+      r=>r.id===rowId
+    );
+
+  if(!row) return;
+
+  row.name=value;
+
+  save();
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function setStatus(
+  tableId,
+  rowId,
+  status
+){
+
+  const table=
+    app.tables.find(
+      t=>t.id===tableId
+    );
+
+  if(!table) return;
+
+  const row=
+    table.rows.find(
+      r=>r.id===rowId
+    );
+
+  if(!row) return;
+
+  row.status=
+    row.status===status
+    ?""
+    :status;
+
+  save();
+  renderTable();
+
+}
+
+
+/* =====================================================
+   DELETE ROW
+===================================================== */
+
+function removeRow(
+  tableId,
+  rowId
+){
+
+  const table=
+    app.tables.find(
+      t=>t.id===tableId
+    );
+
+  if(!table) return;
+
+  table.rows=
+    table.rows.filter(
+      r=>r.id!==rowId
+    );
+
+  save();
+  render();
+
+}
+
+
+/* =====================================================
+   CREATE TABLE
+===================================================== */
+
+function createTable(){
+
+  const name=
+    prompt(
+      "Table name:",
+      `Table ${app.tables.length+1}`
+    );
+
+  if(
+    name===null ||
+    !name.trim()
+  ){
+    return;
+  }
+
+  const table={
+    id:makeId(),
+    name:name.trim(),
+    family:null,
+    rows:[]
+  };
+
+  app.tables.push(table);
+
+  app.activeTableId=table.id;
+
+  save();
+  render();
+
+}
+
+
+/* =====================================================
+   RENAME
+===================================================== */
+
+function renameTable(tableId){
+
+  const table=
+    app.tables.find(
+      t=>t.id===tableId
+    );
+
+  if(!table) return;
+
+  const name=
+    prompt(
+      "Rename table:",
+      table.name
+    );
+
+  if(
+    name===null ||
+    !name.trim()
+  ){
+    return;
+  }
+
+  table.name=name.trim();
+
+  save();
+  render();
+
+}
+
+
+/* =====================================================
+   DELETE TABLE
+===================================================== */
+
+function deleteTable(
+  event,
+  tableId
+){
+
+  event.stopPropagation();
+
+  if(app.tables.length<=1){
+
+    alert(
+      "You must keep at least one table."
+    );
+
+    return;
+
+  }
+
+  const table=
+    app.tables.find(
+      t=>t.id===tableId
+    );
+
+  if(!table) return;
+
+  if(
+    !confirm(
+      `Delete "${table.name}"?`
+    )
+  ){
+    return;
+  }
+
+  app.tables=
+    app.tables.filter(
+      t=>t.id!==tableId
+    );
+
+  app.activeTableId="__ALL__";
+
+  save();
+  render();
+
+}
+
+
+/* =====================================================
+   IMPORT
+===================================================== */
+
+function toggleImport(){
+
+  document
+    .getElementById("importPanel")
+    .classList.toggle("open");
+
+}
+
+function clearImport(){
 
   document
     .getElementById("importTextarea")
@@ -1584,23 +1792,10 @@ function clearImport() {
 
 
 /* =====================================================
-   FIND FAMILY TABLE
-===================================================== */
-
-function findFamilyTable(family) {
-
-  return app.tables.find(
-    table=>table.family===family
-  );
-
-}
-
-
-/* =====================================================
    IMPORT DATA
 ===================================================== */
 
-function importData() {
+function importData(){
 
   const textarea=
     document.getElementById(
@@ -1609,7 +1804,7 @@ function importData() {
 
   const input=textarea.value;
 
-  if (!input.trim()) {
+  if(!input.trim()){
 
     alert(
       "Paste some data first."
@@ -1619,129 +1814,124 @@ function importData() {
 
   }
 
-  const lines=
-    input.split(/\r?\n/);
 
   const groups=new Map();
 
-  lines.forEach(raw => {
+  input
+    .split(/\r?\n/)
+    .forEach(raw=>{
 
-    let line=raw.trim();
+      let line=raw.trim();
 
-    if (!line) return;
+      if(!line) return;
 
-    line=
-      line.replace(
+      line=line.replace(
         /\t+/g,
         " "
       );
 
-    let status="";
 
-    const match=
-      line.match(
-        /\s+([mu])\s*$/i
-      );
+      let status="";
 
-    if (match) {
-
-      status=
-        match[1].toUpperCase();
-
-      line=
-        line
-          .slice(0,match.index)
-          .trim();
-
-    }
-
-    if (!line) return;
-
-    const family=
-      getBaseName(line);
-
-    if (!groups.has(family)) {
-      groups.set(family,[]);
-    }
-
-    groups
-      .get(family)
-      .push({
-        name:line,
-        status:status
-      });
-
-  });
-
-
-  let totalImported=0;
-
-
-  groups.forEach((rows,family) => {
-
-    let table=
-      findFamilyTable(family);
-
-
-    if (!table) {
-
-      table={
-        id:id(),
-        name:family,
-        family:family,
-        rows:[]
-      };
-
-      app.tables.push(table);
-
-    }
-
-
-    rows.forEach(item => {
-
-      const existing=
-        table.rows.find(
-          row =>
-            row.name===item.name
+      const match=
+        line.match(
+          /\s+([mu])\s*$/i
         );
 
+      if(match){
 
-      if (existing) {
+        status=
+          match[1].toUpperCase();
 
-        if (item.status) {
-          existing.status=
-            item.status;
-        }
-
-      } else {
-
-        table.rows.push(
-          newRow(
-            item.name,
-            item.status
-          )
-        );
+        line=
+          line
+            .slice(0,match.index)
+            .trim();
 
       }
 
-      totalImported++;
+      if(!line) return;
+
+
+      const family=
+        getBaseName(line);
+
+
+      if(!groups.has(family)){
+        groups.set(family,[]);
+      }
+
+      groups
+        .get(family)
+        .push({
+          name:line,
+          status:status
+        });
 
     });
 
-  });
+
+  let total=0;
 
 
-  const firstFamily=
-    groups.keys().next().value;
+  groups.forEach(
+    (items,family)=>{
 
-  const firstTable=
-    findFamilyTable(firstFamily);
+      let table=
+        app.tables.find(
+          t=>t.family===family
+        );
 
-  if (firstTable) {
-    app.activeTableId=
-      firstTable.id;
-  }
 
+      if(!table){
+
+        table={
+          id:makeId(),
+          name:family,
+          family:family,
+          rows:[]
+        };
+
+        app.tables.push(table);
+
+      }
+
+
+      items.forEach(item=>{
+
+        const existing=
+          table.rows.find(
+            r=>r.name===item.name
+          );
+
+
+        if(existing){
+
+          if(item.status){
+            existing.status=
+              item.status;
+          }
+
+        }else{
+
+          table.rows.push(
+            makeRow(
+              item.name,
+              item.status
+            )
+          );
+
+        }
+
+        total++;
+
+      });
+
+    }
+  );
+
+
+  app.activeTableId="__ALL__";
 
   save();
   render();
@@ -1749,8 +1939,8 @@ function importData() {
   textarea.value="";
 
   alert(
-    `${totalImported} row${
-      totalImported===1?"":"s"
+    `${total} template${
+      total===1?"":"s"
     } imported into ${
       groups.size
     } table${
@@ -1762,31 +1952,50 @@ function importData() {
 
 
 /* =====================================================
-   CLEAR
+   CLEAR CURRENT
 ===================================================== */
 
-function clearTable() {
+function clearCurrentTable(){
 
-  const table=currentTable();
+  if(isAllTable()){
 
-  if (!table) return;
+    if(
+      !confirm(
+        "Clear ALL templates from ALL tables?"
+      )
+    ){
+      return;
+    }
 
-  if (table.rows.length===0) {
+    app.tables.forEach(
+      t=>t.rows=[]
+    );
+
+    save();
+    render();
+
     return;
   }
 
-  if (
+
+  const table=currentTable();
+
+  if(!table || !table.rows.length){
+    return;
+  }
+
+  if(
     !confirm(
       `Clear all rows from "${table.name}"?`
     )
-  ) {
+  ){
     return;
   }
 
   table.rows=[];
 
   save();
-  renderTable();
+  render();
 
 }
 
@@ -1795,7 +2004,7 @@ function clearTable() {
    DOWNLOAD MODAL
 ===================================================== */
 
-function openDownload(status) {
+function openDownload(status){
 
   downloadStatus=status;
 
@@ -1815,79 +2024,80 @@ function openDownload(status) {
     );
 
 
-  if (status==="U") {
-
-    filename.value="utility";
-
-  } else {
-
-    filename.value="marketing";
-
-  }
+  filename.value=
+    status==="U"
+    ?"utility"
+    :"marketing";
 
 
-  const table=currentTable();
+  const current=
+    isAllTable()
+    ?allRows()
+    :currentTable()
+      ?currentTable().rows.map(
+          row=>({
+            row:row,
+            table:currentTable()
+          })
+        )
+      :[];
+
 
   const currentCount=
-    table
-      ? table.rows.filter(
-          r=>r.status===status
-        ).length
-      : 0;
+    current.filter(
+      x=>x.row.status===status
+    ).length;
+
 
   const allCount=
-    app.tables.reduce(
-      (total,t) =>
-        total+
-        t.rows.filter(
-          r=>r.status===status
-        ).length,
-      0
-    );
+    allRows().filter(
+      x=>x.row.status===status
+    ).length;
 
 
   info.innerHTML=`
-    <strong>${status==="U"?"Utility":"Marketing"}</strong>
+    <strong>
+      ${status==="U"?"Utility":"Marketing"}
+    </strong>
     templates:
-    ${currentCount} in current table,
+    ${currentCount} in current view,
     ${allCount} in all tables.
     <br>
-    The TXT file will contain only template names,
-    one per line.
+    TXT contains only template names.
   `;
 
 
-  /*
-    Change button colors according
-    to U or M.
-  */
+  const currentButton=
+    document.getElementById(
+      "downloadCurrent"
+    );
 
-  document
-    .querySelectorAll(".download-option")
-    .forEach(btn => {
+  const allButton=
+    document.getElementById(
+      "downloadAll"
+    );
 
-      btn.classList.remove("u","m");
 
-      btn.classList.add(
-        status==="U" ? "u" : "m"
-      );
+  currentButton.className=
+    "download-option "+
+    (status==="U"?"u":"m");
 
-    });
+  allButton.className=
+    "download-option "+
+    (status==="U"?"u":"m");
 
 
   modal.classList.add("open");
 
-  setTimeout(() => {
-
+  setTimeout(()=>{
     filename.focus();
     filename.select();
-
-  },30);
+  },20);
 
 }
 
 
-function closeDownload() {
+function closeDownload(){
 
   document
     .getElementById(
@@ -1898,152 +2108,82 @@ function closeDownload() {
 }
 
 
-/* Close when clicking outside */
-
-document
-  .getElementById("downloadModal")
-  .addEventListener(
-    "click",
-    function(event) {
-
-      if (
-        event.target===
-        this
-      ) {
-
-        closeDownload();
-
-      }
-
-    }
-  );
-
-
-/* Escape closes modal */
-
-document.addEventListener(
-  "keydown",
-  function(event) {
-
-    if (
-      event.key==="Escape"
-    ) {
-
-      closeDownload();
-
-    }
-
-  }
-);
-
-
 /* =====================================================
    DOWNLOAD TXT
 ===================================================== */
 
-function downloadTxt(scope) {
+function downloadTxt(scope){
 
-  let rows=[];
+  let source=[];
 
 
-  /*
-    CURRENT TABLE
-  */
+  if(scope==="current"){
 
-  if (scope==="current") {
+    if(isAllTable()){
 
-    const table=currentTable();
+      source=allRows();
 
-    if (!table) {
+    }else{
 
-      alert(
-        "No table selected."
-      );
+      const table=currentTable();
 
-      return;
+      if(!table) return;
+
+      source=
+        table.rows.map(
+          row=>({
+            row:row,
+            table:table
+          })
+        );
 
     }
 
-    rows=
-      table.rows.filter(
-        row =>
-          row.status===downloadStatus &&
-          row.name.trim()
-      );
+  }else{
+
+    source=allRows();
 
   }
 
 
-  /*
-    ALL TABLES
-  */
-
-  if (scope==="all") {
-
-    app.tables.forEach(table => {
-
-      table.rows.forEach(row => {
-
-        if (
-          row.status===downloadStatus &&
-          row.name.trim()
-        ) {
-
-          rows.push(row);
-
-        }
-
-      });
-
-    });
-
-  }
-
-
-  if (rows.length===0) {
-
-    alert(
-      `No ${
-        downloadStatus==="U"
-          ? "Utility"
-          : "Marketing"
-      } templates found.`
-    );
-
-    return;
-
-  }
-
-
-  /*
-    Remove exact duplicate names
-    from All Tables.
-
-    This prevents the same template
-    being written twice if it exists
-    in multiple tables.
-  */
-
-  const uniqueNames=[];
+  const names=[];
   const seen=new Set();
 
-  rows.forEach(row => {
 
-    const name=row.name.trim();
+  source.forEach(item=>{
 
-    if (!seen.has(name)) {
+    const row=item.row;
 
-      seen.add(name);
-      uniqueNames.push(name);
+    if(
+      row.status===downloadStatus &&
+      row.name.trim() &&
+      !seen.has(row.name.trim())
+    ){
+
+      seen.add(row.name.trim());
+
+      names.push(
+        row.name.trim()
+      );
 
     }
 
   });
 
 
-  const text=
-    uniqueNames.join("\n")+
-    "\n";
+  if(!names.length){
+
+    alert(
+      `No ${
+        downloadStatus==="U"
+        ?"Utility"
+        :"Marketing"
+      } templates found.`
+    );
+
+    return;
+
+  }
 
 
   let filename=
@@ -2055,42 +2195,31 @@ function downloadTxt(scope) {
       .trim();
 
 
-  if (!filename) {
+  if(!filename){
 
     filename=
       downloadStatus==="U"
-        ? "utility"
-        : "marketing";
+      ?"utility"
+      :"marketing";
 
   }
 
 
-  /*
-    Remove .txt if user typed it,
-    then add it once.
-  */
-
   filename=
-    filename.replace(
-      /\.txt$/i,
-      ""
-    );
-
-
-  /*
-    Make filename safe.
-  */
-
-  filename=
-    filename.replace(
-      /[<>:"/\\|?*]/g,
-      "_"
-    );
+    filename
+      .replace(
+        /\.txt$/i,
+        ""
+      )
+      .replace(
+        /[<>:"/\\|?*]/g,
+        "_"
+      );
 
 
   const blob=
     new Blob(
-      [text],
+      [names.join("\n")+"\n"],
       {
         type:
           "text/plain;charset=utf-8"
@@ -2101,7 +2230,6 @@ function downloadTxt(scope) {
   const url=
     URL.createObjectURL(blob);
 
-
   const link=
     document.createElement("a");
 
@@ -2109,7 +2237,6 @@ function downloadTxt(scope) {
 
   link.download=
     filename+".txt";
-
 
   document.body.appendChild(link);
 
@@ -2125,17 +2252,35 @@ function downloadTxt(scope) {
 
 
 /* =====================================================
-   DOWNLOAD CSV
+   CSV
 ===================================================== */
 
-function downloadCSV() {
+function downloadCSV(){
 
-  const table=currentTable();
+  let source=[];
 
-  if (
-    !table ||
-    table.rows.length===0
-  ) {
+  if(isAllTable()){
+
+    source=allRows();
+
+  }else{
+
+    const table=currentTable();
+
+    if(!table) return;
+
+    source=
+      table.rows.map(
+        row=>({
+          row:row,
+          table:table
+        })
+      );
+
+  }
+
+
+  if(!source.length){
 
     alert(
       "There is nothing to download."
@@ -2147,20 +2292,24 @@ function downloadCSV() {
 
 
   let csv=
-    "Template Name,Status\n";
+    "Template Name,Status,Table\n";
 
 
-  table.rows.forEach(row => {
+  source.forEach(item=>{
 
     const name=
-      String(row.name||"")
+      String(item.row.name||"")
         .replace(/"/g,'""');
 
     const status=
-      row.status||"";
+      item.row.status||"";
+
+    const table=
+      String(item.table.name||"")
+        .replace(/"/g,'""');
 
     csv+=
-      `"${name}","${status}"\n`;
+      `"${name}","${status}","${table}"\n`;
 
   });
 
@@ -2178,22 +2327,13 @@ function downloadCSV() {
   const url=
     URL.createObjectURL(blob);
 
-
   const link=
     document.createElement("a");
 
   link.href=url;
 
   link.download=
-    (
-      table.name
-        .replace(
-          /[^a-z0-9_-]/gi,
-          "_"
-        )
-      || "table"
-    )+".csv";
-
+    "templates.csv";
 
   document.body.appendChild(link);
 
@@ -2204,6 +2344,36 @@ function downloadCSV() {
   URL.revokeObjectURL(url);
 
 }
+
+
+/* =====================================================
+   MODAL EVENTS
+===================================================== */
+
+document
+  .getElementById("downloadModal")
+  .addEventListener(
+    "click",
+    function(e){
+
+      if(e.target===this){
+        closeDownload();
+      }
+
+    }
+  );
+
+
+document.addEventListener(
+  "keydown",
+  function(e){
+
+    if(e.key==="Escape"){
+      closeDownload();
+    }
+
+  }
+);
 
 
 /* =====================================================
